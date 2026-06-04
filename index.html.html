@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SNG ÇEVİRİ</title>
+
+<style>
+
+/* ===== GENEL ===== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    color:white;
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+
+    /* telefon kaydırma düzeltmesi */
+    align-items:flex-start;
+
+    padding:20px;
+
+    overflow-y:auto;
+    overflow-x:hidden;
+
+    background:#050b1f;
+}
+
+/* ===== ⭐ YILDIZLI ARKAPLAN ===== */
+
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+
+    background:
+        radial-gradient(circle at 5% 10%, rgba(255,255,255,1), transparent 2px),
+        radial-gradient(circle at 15% 80%, rgba(255,255,255,0.9), transparent 2px),
+        radial-gradient(circle at 25% 30%, rgba(255,255,255,1), transparent 2px),
+        radial-gradient(circle at 35% 60%, rgba(255,255,255,0.8), transparent 2px),
+        radial-gradient(circle at 45% 20%, rgba(255,255,255,1), transparent 2px),
+        radial-gradient(circle at 55% 70%, rgba(255,255,255,0.9), transparent 2px),
+        radial-gradient(circle at 65% 40%, rgba(255,255,255,1), transparent 2px),
+        radial-gradient(circle at 75% 15%, rgba(255,255,255,0.8), transparent 2px),
+        radial-gradient(circle at 85% 75%, rgba(255,255,255,1), transparent 2px),
+        radial-gradient(circle at 95% 50%, rgba(255,255,255,0.9), transparent 2px),
+        #050b1f;
+
+    background-size:300px 300px;
+
+    animation:stars 10s linear infinite;
+
+    z-index:-3;
+}
+
+/* yıldız hareketi */
+
+@keyframes stars{
+
+    from{
+        background-position:0 0;
+    }
+
+    to{
+        background-position:1200px 700px;
+    }
+
+}
+
+/* ===== 🌍 DÜNYA ===== */
+
+body::after{
+    content:"";
+    position:fixed;
+
+    width:520px;
+    height:520px;
+
+    background:url("dunya.png") no-repeat center;
+    background-size:contain;
+
+    top:50%;
+    left:50%;
+
+    opacity:0.22;
+
+    z-index:-2;
+
+    animation:don 35s linear infinite;
+
+    transform:translate(-50%,-50%);
+}
+
+/* dünya dönme */
+
+@keyframes don{
+
+    from{
+        transform:translate(-50%,-50%) rotate(0deg);
+    }
+
+    to{
+        transform:translate(-50%,-50%) rotate(360deg);
+    }
+
+}
+
+/* ===== ✨ KAYAN YILDIZ ===== */
+
+.shooting-star{
+
+    position:fixed;
+
+    top:-100px;
+    left:-100px;
+
+    width:4px;
+    height:180px;
+
+    background:linear-gradient(white,transparent);
+
+    transform:rotate(45deg);
+
+    opacity:0.8;
+
+    animation:kayan 5s linear infinite;
+
+    z-index:-1;
+}
+
+@keyframes kayan{
+
+    from{
+        transform:translate(0,0) rotate(45deg);
+    }
+
+    to{
+        transform:translate(1600px,900px) rotate(45deg);
+    }
+
+}
+
+/* ===== ANA KUTU ===== */
+
+.container{
+
+    width:100%;
+    max-width:1000px;
+
+    background:rgba(15,23,42,0.85);
+
+    border-radius:25px;
+
+    padding:30px;
+
+    margin-top:30px;
+    margin-bottom:30px;
+
+    box-shadow:0 0 40px rgba(0,0,0,0.8);
+
+    backdrop-filter:blur(10px);
+}
+
+/* ===== BAŞLIK ===== */
+
+h1{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    color:#38bdf8;
+
+    font-size:42px;
+
+    text-shadow:0 0 15px #38bdf8;
+}
+
+/* ===== DİL ALANI ===== */
+
+.lang-area{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+select{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#1e293b;
+
+    color:white;
+
+    font-size:16px;
+}
+
+/* ===== DİL DEĞİŞTİR BUTONU ===== */
+
+#swapBtn{
+
+    width:100%;
+
+    margin-bottom:20px;
+
+    background:linear-gradient(135deg,#0ea5e9,#2563eb);
+}
+
+/* ===== TEXTAREA ===== */
+
+textarea{
+
+    width:100%;
+
+    min-height:180px;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#1e293b;
+
+    color:white;
+
+    font-size:18px;
+
+    resize:none;
+
+    margin-top:10px;
+}
+
+textarea:focus{
+
+    outline:none;
+
+    box-shadow:0 0 18px #38bdf8;
+}
+
+/* ===== BİLGİ ===== */
+
+.info{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:8px;
+
+    color:#94a3b8;
+}
+
+/* ===== BUTONLAR ===== */
+
+.buttons{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:20px;
+}
+
+button{
+
+    flex:1;
+
+    min-width:140px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+button:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 20px #38bdf8;
+}
+
+/* ===== LOADING ===== */
+
+#loading{
+
+    display:none;
+
+    margin-top:15px;
+
+    color:yellow;
+}
+
+/* ===== MOBİL ===== */
+
+@media(max-width:700px){
+
+.lang-area{
+    flex-direction:column;
+}
+
+.buttons{
+    flex-direction:column;
+}
+
+h1{
+    font-size:32px;
+}
+
+textarea{
+    min-height:150px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- kayan yıldız -->
+<div class="shooting-star"></div>
+
+<div class="container">
+
+<h1>🌍 SNG ÇEVİRİ</h1>
+
+<!-- DİL ALANI -->
+
+<div class="lang-area">
+
+<select id="fromLang">
+
+<option value="tr">🇹🇷 Türkçe</option>
+<option value="en">🇬🇧 English</option>
+<option value="de">🇩🇪 Deutsch</option>
+<option value="fr">🇫🇷 Français</option>
+<option value="es">🇪🇸 Español</option>
+<option value="it">🇮🇹 Italiano</option>
+
+</select>
+
+<select id="toLang">
+
+<option value="en">🇬🇧 English</option>
+<option value="tr">🇹🇷 Türkçe</option>
+<option value="de">🇩🇪 Deutsch</option>
+<option value="fr">🇫🇷 Français</option>
+<option value="es">🇪🇸 Español</option>
+<option value="it">🇮🇹 Italiano</option>
+
+</select>
+
+</div>
+
+<!-- DİL DEĞİŞTİR -->
+
+<button onclick="degistir()" id="swapBtn">
+🔄 Dilleri Değiştir
+</button>
+
+<!-- GİRİŞ -->
+
+<textarea
+id="giris"
+placeholder="Çevirmek istediğin metni yaz..."></textarea>
+
+<!-- BİLGİ -->
+
+<div class="info">
+
+<p id="sayac">0 karakter</p>
+
+<p id="durum">Hazır</p>
+
+</div>
+
+<!-- LOADING -->
+
+<p id="loading">
+⏳ Çevriliyor...
+</p>
+
+<!-- BUTONLAR -->
+
+<div class="buttons">
+
+<button onclick="cevir()">
+🌍 Çevir
+</button>
+
+<button onclick="seslendir()">
+🔊 Seslendir
+</button>
+
+<button onclick="kopyala()">
+📋 Kopyala
+</button>
+
+<button onclick="temizle()">
+🗑️ Temizle
+</button>
+
+</div>
+
+<!-- ÇIKIŞ -->
+
+<textarea
+id="cikis"
+placeholder="Çeviri burada görünecek..."
+readonly></textarea>
+
+</div>
+
+<script>
+
+/* karakter sayısı */
+
+document
+.getElementById("giris")
+.addEventListener("input",function(){
+
+document.getElementById("sayac").innerText=
+this.value.length + " karakter";
+
+});
+
+/* çeviri */
+
+async function cevir(){
+
+let metin=
+document.getElementById("giris").value;
+
+let from=
+document.getElementById("fromLang").value;
+
+let to=
+document.getElementById("toLang").value;
+
+if(metin.trim()===""){
+
+alert("Metin gir!");
+
+return;
+
+}
+
+document.getElementById("loading").style.display=
+"block";
+
+document.getElementById("durum").innerText=
+"Çevriliyor...";
+
+let url=
+`https://api.mymemory.translated.net/get?q=${encodeURIComponent(metin)}&langpair=${from}|${to}`;
+
+try{
+
+let res=
+await fetch(url);
+
+let data=
+await res.json();
+
+document.getElementById("cikis").value=
+data.responseData.translatedText;
+
+document.getElementById("durum").innerText=
+"Tamamlandı";
+
+}
+
+catch{
+
+alert("Hata oluştu!");
+
+document.getElementById("durum").innerText=
+"Hata";
+
+}
+
+document.getElementById("loading").style.display=
+"none";
+
+}
+
+/* ses */
+
+function seslendir(){
+
+let text=
+document.getElementById("cikis").value;
+
+if(!text){
+
+alert("Boş!");
+
+return;
+
+}
+
+let speech=
+new SpeechSynthesisUtterance(text);
+
+speech.lang=
+document.getElementById("toLang").value;
+
+speechSynthesis.speak(speech);
+
+}
+
+/* kopyala */
+
+function kopyala(){
+
+navigator.clipboard.writeText(
+document.getElementById("cikis").value
+);
+
+alert("Kopyalandı!");
+
+}
+
+/* temizle */
+
+function temizle(){
+
+document.getElementById("giris").value="";
+document.getElementById("cikis").value="";
+
+document.getElementById("sayac").innerText=
+"0 karakter";
+
+document.getElementById("durum").innerText=
+"Hazır";
+
+}
+
+/* dilleri değiştir */
+
+function degistir(){
+
+let from=
+document.getElementById("fromLang");
+
+let to=
+document.getElementById("toLang");
+
+let gecici=
+from.value;
+
+from.value=
+to.value;
+
+to.value=
+gecici;
+
+}
+
+</script>
+
+</body>
+</html>
